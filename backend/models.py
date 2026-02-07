@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, String, DateTime
 from datetime import datetime
-from .database import Base
+from database import Base
 
 class EnergyData(Base):
     __tablename__ = "energy_logs"
