@@ -20,14 +20,20 @@
 #     }
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-import models, database
-import schemas
+import models, database, schemas
+from fastapi.middleware.cors import CORSMiddleware
 
 # ایجاد جدول‌ها در دیتابیس
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title="Smart Energy API")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # اجازه به همه آدرس‌ها (برای محیط توسعه)
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # ایجاد یک تابع برای گرفتن دیتابیس در هر درخواست
 def get_db():
     db = database.SessionLocal()
